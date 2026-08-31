@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlotThreads — track your story's promises</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="header-inner">
+    <h1>🧵 PlotThreads</h1>
+    <p class="tagline">Track every promise you've made to your readers. Never let a subplot go cold.</p>
+  </div>
+</header>
+
+<main class="container">
+  <section class="controls-bar">
+    <div class="field-group">
+      <label for="currentChapter">Current chapter #</label>
+      <input type="number" id="currentChapter" min="0" value="1">
+    </div>
+    <div class="field-group">
+      <label for="staleThreshold">Flag stale after (chapters)</label>
+      <input type="number" id="staleThreshold" min="1" value="5">
+    </div>
+    <div class="field-group filter-group">
+      <label for="statusFilter">Filter</label>
+      <select id="statusFilter">
+        <option value="all">All threads</option>
+        <option value="planted">Planted</option>
+        <option value="developing">Developing</option>
+        <option value="resolved">Resolved</option>
+        <option value="stale">Stale only</option>
+      </select>
+    </div>
+    <button id="newThreadBtn" class="btn-primary">+ New Thread</button>
+  </section>
+
+  <section class="stats-bar" id="statsBar" aria-live="polite"></section>
+
+  <section id="emptyState" class="empty-state" hidden>
+    <p>No plot threads yet. Add your first one — a subplot, a mystery, a promise you made to readers — and start tracking it.</p>
+  </section>
+
+  <section id="threadList" class="thread-list"></section>
+</main>
+
+<dialog id="threadDialog">
+  <form id="threadForm" method="dialog">
+    <h2 id="dialogTitle">New Plot Thread</h2>
+    <input type="hidden" id="threadId">
+
+    <label for="threadName">Name</label>
+    <input type="text" id="threadName" required maxlength="120" placeholder="e.g. Who sabotaged the airship?">
+
+    <label for="threadDescription">Description / promise to reader</label>
+    <textarea id="threadDescription" rows="3" maxlength="1000" placeholder="What did you set up? What does the reader expect to be paid off?"></textarea>
+
+    <div class="form-row">
+      <div class="field-group">
+        <label for="threadStatus">Status</label>
+        <select id="threadStatus">
+          <option value="planted">Planted</option>
+          <option value="developing">Developing</option>
+          <option value="resolved">Resolved</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label for="threadChapter">Last updated at chapter #</label>
+        <input type="number" id="threadChapter" min="0" required>
+      </div>
+    </div>
+
+    <div class="dialog-actions">
+      <button type="button" id="deleteThreadBtn" class="btn-danger" hidden>Delete</button>
+      <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+      <button type="submit" class="btn-primary">Save Thread</button>
+    </div>
+  </form>
+</dialog>
+
+<footer class="app-footer">
+  <p>All data stays in your browser (localStorage). No account, no server, no tracking.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
